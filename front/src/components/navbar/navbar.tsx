@@ -27,7 +27,7 @@ const Navbar: React.FC = () => {
   return (
     <NavbarContainer>
       <LogoWrapper>
-        <img src="/logo.jpg" width="100px" />
+        <img src="/logo.jpg" width="100px" alt="Logo blacktech" />
         <HamburgerMenu onClick={toggleMenu}>&#9776;</HamburgerMenu>
       </LogoWrapper>
       <NavWrapper open={isOpen}>
