@@ -1,10 +1,34 @@
-
+import React from 'react';
+import dynamic from 'next/dynamic';
 import { INewProduct } from '@/Interfaces/INewProduct';
-import Slider from 'react-slick';
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
+// Importación dinámica de react-slick para evitar problemas de SSR
+const Slider = dynamic(() => import('react-slick'), { ssr: false });
+
+interface ArrowProps {
+    className?: string;
+    style?: React.CSSProperties;
+    onClick?: () => void;
+}
+
+const CustomPrevArrow: React.FC<ArrowProps> = ({ className, style, onClick }) => (
+    <div className={className} style={{ ...style }}>
+        <div className="custom-arrow custom-prev-arrow" onClick={onClick}>
+            <FaChevronLeft />
+        </div>
+    </div>
+);
+
+const CustomNextArrow: React.FC<ArrowProps> = ({ className, style, onClick }) => (
+    <div className={className} style={{ ...style }}>
+        <div className="custom-arrow custom-next-arrow" onClick={onClick}>
+            <FaChevronRight />
+        </div>
+    </div>
+);
 
 interface CarouselProps {
     items: INewProduct[];
@@ -20,7 +44,6 @@ const NewProductsCarousel: React.FC<CarouselProps> = ({ items }) => {
         arrows: true,
         prevArrow: <CustomPrevArrow />,
         nextArrow: <CustomNextArrow />,
-
     };
 
     return (
@@ -30,7 +53,7 @@ const NewProductsCarousel: React.FC<CarouselProps> = ({ items }) => {
                     <div key={index}>
                         <div className="bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 mx-2">
                             <a href="#">
-                                <img className="carousel-image" src={item.image} alt="" />
+                                <img className="carousel-image" src={item.image} alt={item.name} />
                             </a>
                             <div className="p-5">
                                 <a href="#">
@@ -48,39 +71,6 @@ const NewProductsCarousel: React.FC<CarouselProps> = ({ items }) => {
                     </div>
                 ))}
             </Slider>
-        </div>
-    );
-};
-
-
-
-// Custom arrow components
-const CustomPrevArrow = (props: any) => {
-    const { className, style, onClick } = props;
-    return (
-        <div className={className} style={{ ...style }}>
-            <div
-                className="custom-arrow custom-prev-arrow"
-
-                onClick={onClick}
-            >
-                <FaChevronLeft />
-            </div>
-        </div>
-    );
-};
-
-const CustomNextArrow = (props: any) => {
-    const { className, style, onClick } = props;
-    return (
-        <div className={className} style={{ ...style }}>
-            <div
-                className="custom-arrow custom-next-arrow"
-
-                onClick={onClick}
-            >
-                <FaChevronRight />
-            </div>
         </div>
     );
 };
