@@ -13,7 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.checkPasswordService = exports.createCredentialService = void 0;
-const bcrypt_1 = __importDefault(require("bcrypt"));
+const bcrypt_1 = __importDefault(require("bcryptjs"));
 const credential_repository_1 = require("../repositories/credential.repository");
 // ...
 const createCredentialService = (credentialDto) => __awaiter(void 0, void 0, void 0, function* () {
