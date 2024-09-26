@@ -5,8 +5,9 @@ import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
+const Slider = dynamic(() => import('react-slick'), { ssr: false });
+
 // Importación dinámica de react-slick para evitar problemas de SSR
-const Slider = dynamic(() => import('react-slick').then((mod) => mod.default), { ssr: false });
 
 interface ArrowProps {
     className?: string;
@@ -35,16 +36,19 @@ interface CarouselProps {
 }
 
 const NewProductsCarousel: React.FC<CarouselProps> = ({ items }) => {
-    const settings = {
+    const settings: any = {
         infinite: true,
         speed: 500,
         slidesToShow: 4,
         slidesToScroll: 1,
-        spaceBetween: 20,
         arrows: true,
         prevArrow: <CustomPrevArrow />,
         nextArrow: <CustomNextArrow />,
     };
+
+    if (typeof window === 'undefined') {
+        return <div>Loading...</div>; // or any placeholder you prefer
+    }
 
     return (
         <div className="container mx-auto px-4 mb-10">
